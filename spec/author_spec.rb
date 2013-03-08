@@ -55,4 +55,24 @@ describe Author do
     end
   end
 
+  context'#search_by_id' do 
+    it 'gets the author for a specific book' do 
+      book = Book.new({'title' => 'Scarlett Letter'})
+      book.save
+      author = Author.new('first_name' => 'Nathanial', 'last_name' => 'Hawthorne')
+      author.save
+      book.update_author_id(author.id)
+      Author.search_by_id(author.id).first.first_name.should eq author.first_name
+    end
+  end
+
+    context '#edit_author' do 
+    it 'edits the author of the book' do 
+      author = Author.new('first_name' => 'Nathanial', 'last_name' => 'Hawthorne')
+      author.save
+      Author.edit_author(author.id, 'Nathaniel', 'Hawthorne')
+      Author.search_by_id(author.id).first.first_name.should eq 'Nathaniel'
+    end
+  end
+
 end
